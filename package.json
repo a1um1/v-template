@@ -11,6 +11,7 @@
     "auth:generate": "bunx --bun @better-auth/cli@latest generate --output ./server/schema/auth.ts --config ./server/auth.ts"
   },
   "dependencies": {
+    "@daveyplate/better-auth-ui": "^3.2.8",
     "@elysiajs/eden": "^1.4.4",
     "@elysiajs/openapi": "^1.4.11",
     "@elysiajs/server-timing": "^1.4.0",

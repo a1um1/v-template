@@ -1,23 +1,27 @@
-"use client";
+"use client"
 
-import { DropdownMenu } from "@radix-ui/react-dropdown-menu";
-import { Box } from "lucide-react";
-import type * as React from "react";
-import { NavMain } from "@/components/nav-main";
-import { DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+import { UserButton } from "@daveyplate/better-auth-ui"
+import { DropdownMenu } from "@radix-ui/react-dropdown-menu"
+import { Box } from "lucide-react"
+import type * as React from "react"
+import { NavMain } from "@/components/nav-main"
+import { DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
 import {
 	Sidebar,
 	SidebarContent,
+	SidebarFooter,
 	SidebarHeader,
 	SidebarMenu,
 	SidebarMenuButton,
 	SidebarMenuItem,
-	SidebarRail,
-} from "@/components/ui/sidebar";
+	SidebarRail
+} from "@/components/ui/sidebar"
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
 	return (
-		<Sidebar collapsible="icon" {...props}>
+		<Sidebar
+			collapsible="icon"
+			{...props}>
 			<SidebarHeader>
 				<SidebarMenu>
 					<SidebarMenuItem>
@@ -25,8 +29,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
 							<DropdownMenuTrigger asChild>
 								<SidebarMenuButton
 									size="lg"
-									className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
-								>
+									className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground">
 									<div className="bg-sidebar-primary text-sidebar-primary-foreground flex aspect-square size-8 items-center justify-center rounded-lg">
 										<Box className="size-4" />
 									</div>
@@ -42,7 +45,14 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
 			<SidebarContent>
 				<NavMain />
 			</SidebarContent>
+			<SidebarFooter>
+				<UserButton
+					disableDefaultLinks
+					size="lg"
+					variant="secondary"
+				/>
+			</SidebarFooter>
 			<SidebarRail />
 		</Sidebar>
-	);
+	)
 }

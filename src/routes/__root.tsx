@@ -8,6 +8,7 @@ import { createRootRoute, HeadContent, Scripts } from "@tanstack/react-router"
 import { TanStackRouterDevtoolsPanel } from "@tanstack/react-router-devtools"
 import { useEffect } from "react"
 import { Toaster, toast } from "sonner"
+import AuthProvider from "@/components/auth-provider"
 import appCss from "../styles.css?url"
 
 const queryClient = new QueryClient({
@@ -29,7 +30,9 @@ const queryClient = new QueryClient({
 		},
 		onSettled(_data, _error, _variables, _onMutateResult, _mutation, context) {
 			queryClient.invalidateQueries({
-				queryKey: context.mutationKey || []
+				queryKey: context.mutationKey || [],
+				exact: false,
+				fetchStatus: "fetching"
 			})
 		}
 	})
@@ -76,7 +79,7 @@ function RootDocument({ children }: { children: React.ReactNode }) {
 			</head>
 			<body>
 				<QueryClientProvider client={queryClient}>
-					{children}
+					<AuthProvider>{children}</AuthProvider>
 				</QueryClientProvider>
 				<TanStackDevtools
 					config={{

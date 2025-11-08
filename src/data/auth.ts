@@ -1,8 +1,9 @@
 import { useMutation, useQuery } from "@tanstack/react-query"
 import { createAuthClient } from "better-auth/react"
 
+const url = new URL(import.meta.env.VITE_API_URL || "http://localhost:3000")
 export const authClient = createAuthClient({
-	baseURL: import.meta.env.VITE_API_URL
+	baseURL: url.href
 })
 
 export const useUser = () => {
@@ -20,7 +21,9 @@ export const useUser = () => {
 
 export const useIsAuthenticated = () => {
 	const { data: user } = useUser()
-	return Boolean(user)
+	return {
+		isAuthenticated: Boolean(user)
+	}
 }
 
 export const useSignIn = () => {
