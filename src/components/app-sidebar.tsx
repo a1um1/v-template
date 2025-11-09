@@ -14,7 +14,8 @@ import {
 	SidebarMenu,
 	SidebarMenuButton,
 	SidebarMenuItem,
-	SidebarRail
+	SidebarRail,
+	useSidebar
 } from "@/components/ui/sidebar"
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
@@ -46,13 +47,38 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
 				<NavMain />
 			</SidebarContent>
 			<SidebarFooter>
-				<UserButton
-					disableDefaultLinks
-					size="lg"
-					variant="secondary"
-				/>
+				<UserButtonCustom />
 			</SidebarFooter>
 			<SidebarRail />
 		</Sidebar>
+	)
+}
+
+const UserButtonCustom = () => {
+	const { state } = useSidebar()
+	return (
+		<UserButton
+			classNames={{
+				"content": {
+					user: {
+						"avatar": {
+							"fallback": "bg-primary text-primary-foreground",
+							"base": "size-9"
+						}
+					}
+				},
+				"trigger": {
+					user: {
+						"avatar": {
+							"fallback": "bg-primary text-primary-foreground",
+							"base": "size-9"
+						}
+					}
+				}
+			}}
+			disableDefaultLinks
+			size={state === "collapsed" ? "icon" : "lg"}
+			variant="secondary"
+		/>
 	)
 }

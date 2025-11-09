@@ -27,18 +27,30 @@ function RouteComponent() {
 							<SidebarTrigger />
 							<div className="w-0.5 bg-border mr-auto self-stretch" />
 							<UserButton
-								disableDefaultLinks
-								size="sm"
-								variant="ghost"
-								className="[&_span]:size-8"
 								classNames={{
 									"trigger": {
 										"user": {
-											"content": "inline"
+											"content": "inline not-md:hidden",
+											"base": "flex-row-reverse",
+											"avatar": {
+												"fallback": "bg-primary text-primary-foreground",
+												"base": "size-9"
+											}
 										},
 										"base": "[&_svg]:hidden"
+									},
+									"content": {
+										user: {
+											"avatar": {
+												"fallback": "bg-primary text-primary-foreground",
+												"base": "size-9"
+											}
+										}
 									}
 								}}
+								disableDefaultLinks
+								size="sm"
+								variant="ghost"
 							/>
 						</div>
 					</header>
