@@ -10,7 +10,7 @@ function RouteComponent() {
 	const eden = useEden()
 	const { data, isLoading } = useQuery({
 		queryKey: [
-			"hello"
+			"version"
 		],
 		queryFn: async () => {
 			const { data, error } = await eden.get()
@@ -21,7 +21,7 @@ function RouteComponent() {
 	return (
 		<div>
 			<h1>Hi</h1>
-			<p>{isLoading ? "Loading..." : data}</p>
+			<p>{isLoading ? "Loading..." : data?.appVersion}</p>
 		</div>
 	)
 }
