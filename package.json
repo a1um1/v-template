@@ -2,7 +2,7 @@
   "name": "v-template",
   "private": true,
   "type": "module",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "scripts": {
     "dev": "bunx --bun vite dev --port 3000",
     "build": "bunx --bun vite build",
