@@ -4,7 +4,6 @@ import { serverTiming } from '@elysiajs/server-timing'
 import { fromTypes, openapi } from '@elysiajs/openapi'
 import { authMiddleware } from '@server/model/authMiddleware'
 
-
 export const app = new Elysia({
 	prefix: '/api'
 })

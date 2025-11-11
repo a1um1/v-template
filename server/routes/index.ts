@@ -1,4 +1,3 @@
-import { app } from "@server/index"
 import { authMiddleware } from "@server/model/authMiddleware"
 import { adminRoute } from "@server/routes/admin"
 import Elysia from "elysia"
