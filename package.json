@@ -6,10 +6,10 @@
   "scripts": {
     "dev": "bunx --bun vite dev --port 3000",
     "build": "bunx --bun vite build",
-    "serve": "bun --bun server.ts",
+    "start": "bun run .output/server/index.mjs",
     "db:push": "bunx --bun drizzle-kit push",
     "db:studio": "bunx --bun drizzle-kit studio",
-    "auth:generate": "bunx --bun @better-auth/cli@latest generate --output ./server/schema/auth.ts --config ./server/auth.ts"
+    "auth:generate": "bunx --bun @better-auth/cli@latest generate --output ./server/schema/auth.ts --config ./server/auth.ts -y && sed -i '' -E 's/\\(\"([^\"]*)\"\\)/()/g' ./server/schema/auth.ts"
   },
   "dependencies": {
     "@daveyplate/better-auth-ui": "^3.2.8",
@@ -36,6 +36,7 @@
     "drizzle-orm": "^0.44.7",
     "elysia": "^1.4.13",
     "lucide-react": "^0.552.0",
+    "nitro": "^3.0.1-alpha.1",
     "pg": "^8.16.3",
     "postcss": "^8.5.6",
     "react": "^19.2.0",

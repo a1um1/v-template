@@ -23,12 +23,11 @@ RUN bun run build
 FROM base AS release
 COPY --from=install /temp/prod/node_modules node_modules
 COPY --from=prerelease /usr/src/app/package.json .
-COPY --from=prerelease /usr/src/app/dist/ ./dist
-COPY server.ts .
-
+COPY --from=prerelease /usr/src/app/.output ./.output
+RUN ls -la .
 
 # run the app
 USER root
 EXPOSE 3000/tcp
 ENV PORT=3000
-CMD [ "bun", "--bun", "run", "server.ts" ]
+CMD [ "bun", "--bun", "run", ".output/server/index.mjs" ]

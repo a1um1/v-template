@@ -1,6 +1,5 @@
 import { auth } from "@server/auth";
-import { statement } from "@server/permission";
-import { AccessControl, Subset } from "better-auth/plugins/access";
+import { Session, User } from "better-auth";
 import Elysia from "elysia";
 
 export const authMiddleware = new Elysia({ name: "better-auth" })
@@ -10,7 +9,10 @@ export const authMiddleware = new Elysia({ name: "better-auth" })
       enabled?: boolean,
       permissions?:Parameters<typeof auth.api.userHasPermission>[0]['body']['permissions']
     }) => config?.enabled || config?.permissions ? ({
-      async resolve({ status, request }) {
+      async resolve({ status, request }): Promise<{
+        session: Session
+        user: User
+      } | {}> {
        const data = await auth.api.getSession(request)
        if (!data?.session) return status(401);
        if (config?.permissions) {
@@ -27,5 +29,6 @@ export const authMiddleware = new Elysia({ name: "better-auth" })
           session: data.session,
           user: data.user
         }
-		}}) : {}
+		}}) : {
+    }
 	})
