@@ -3,22 +3,22 @@ import { Elysia } from 'elysia'
 import { serverTiming } from '@elysiajs/server-timing'
 import { fromTypes, openapi } from '@elysiajs/openapi'
 import { authMiddleware } from '@server/model/authMiddleware'
+import './error-translation'
 
 export const app = new Elysia({
 	prefix: '/api'
 })
 	.use(authMiddleware)
     .onError(({ error, status, code }) => {
-        status(400)
-        if (code === 'VALIDATION') {
-            return {
-                message: 'Validation Error',
-            }
+         if (code === 'VALIDATION') {
+            return status(400, {
+                message: `ตรวจสอบช่องกรอกข้อมูลดังนี้
+${error.all.map((e) => `- ${(e as any).path.slice(1)} ${e.summary}`).join('\n')}`,
+            })
         }
-        status(500)
-        return {
+        return status(500, {
             message: 'Something went wrong!',
-        }
+        })
 	})
     .use(openapi({
             references: fromTypes('server/index.ts')
