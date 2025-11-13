@@ -20,12 +20,12 @@ export const authClient = createAuthClient({
 export const useUser = () => {
 	return useQuery({
 		queryKey: [
-			"user"
+			"session"
 		],
 		queryFn: async () => {
 			const { data, error } = await authClient.getSession()
 			if (error) throw error
-			return data?.user
+			return data
 		}
 	})
 }

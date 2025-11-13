@@ -14,9 +14,12 @@ import appCss from "../styles.css?url"
 const queryClient = new QueryClient({
 	mutationCache: new MutationCache({
 		onError(error, _variables, _onMutateResult, mutation, _context) {
-			toast.error(error?.message || "An error occurred", {
-				id: mutation.mutationId
-			})
+			toast.error(
+				(error as any)?.value?.message || error?.message || "An error occurred",
+				{
+					id: mutation.mutationId
+				}
+			)
 		},
 		onSuccess(data: any, _variables, _onMutateResult, mutation, _context) {
 			toast.success(data?.message || "ดำเนินการสำเร็จ", {
@@ -30,9 +33,12 @@ const queryClient = new QueryClient({
 		},
 		onSettled(_data, _error, _variables, _onMutateResult, _mutation, context) {
 			queryClient.invalidateQueries({
-				queryKey: context.mutationKey || [],
-				exact: false,
-				fetchStatus: "fetching"
+				queryKey: context.mutationKey?.[0]
+					? [
+							context.mutationKey[0]
+						]
+					: [],
+				exact: false
 			})
 		}
 	})
@@ -81,17 +87,19 @@ function RootDocument({ children }: { children: React.ReactNode }) {
 				<QueryClientProvider client={queryClient}>
 					<AuthProvider>{children}</AuthProvider>
 				</QueryClientProvider>
-				<TanStackDevtools
-					config={{
-						position: "bottom-right"
-					}}
-					plugins={[
-						{
-							name: "Tanstack Router",
-							render: <TanStackRouterDevtoolsPanel />
-						}
-					]}
-				/>
+				{!import.meta.env.PROD && (
+					<TanStackDevtools
+						config={{
+							position: "bottom-right"
+						}}
+						plugins={[
+							{
+								name: "Tanstack Router",
+								render: <TanStackRouterDevtoolsPanel />
+							}
+						]}
+					/>
+				)}
 				<Scripts />
 				<Toaster richColors />
 			</body>

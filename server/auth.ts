@@ -14,12 +14,12 @@ export const auth = betterAuth({
   },
   plugins: [
     adminPlugin({
-            ac: ac,
-            roles: {
-                systemAdmin,
-                user,
-            }
-        }),
+        ac: ac,
+        roles: {
+            systemAdmin,
+            user,
+        }
+    }),
   ],
 	session: {
     cookieCache: {

@@ -1,4 +1,4 @@
-import { createAccessControl, Statements, Subset } from "better-auth/plugins/access";
+import { createAccessControl, Subset } from "better-auth/plugins/access";
 import { defaultStatements, adminAc } from "better-auth/plugins/admin/access";
 
 const baseRole = ["view", "insert", "update", "delete"] as const;

@@ -1,4 +1,5 @@
 FROM oven/bun:alpine AS base
+ENV NODE_ENV=production
 WORKDIR /usr/src/app
 
 # Cache Temporary Dependencies
@@ -16,7 +17,6 @@ RUN cd /temp/prod && bun install --frozen-lockfile --production
 FROM base AS prerelease
 COPY --from=install /temp/dev/node_modules node_modules
 COPY . .
-ENV NODE_ENV=production
 RUN bun run build
 
 # copy production dependencies and source code into final image
