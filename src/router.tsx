@@ -21,6 +21,18 @@ export const getRouter = () => {
 				</div>
 			)
 		},
+		defaultErrorComponent: ({ error }) => {
+			return (
+				<div className="h-full flex items-center justify-center flex-col my-auto">
+					<div className="my-auto">
+						<h1 className="text-center">
+							<span className="text-6xl font-bold mr-2 block mb-1">500</span>
+							เกิดข้อผิดพลาด: {error.message}
+						</h1>
+					</div>
+				</div>
+			)
+		},
 		defaultPendingComponent: () => (
 			<div className="h-full flex items-center justify-center flex-col my-auto">
 				<div className="my-auto">

@@ -4,6 +4,7 @@ import {
 	QueryClient,
 	QueryClientProvider
 } from "@tanstack/react-query"
+import { ReactQueryDevtoolsPanel } from "@tanstack/react-query-devtools"
 import { createRootRoute, HeadContent, Scripts } from "@tanstack/react-router"
 import { TanStackRouterDevtoolsPanel } from "@tanstack/react-router-devtools"
 import { useEffect } from "react"
@@ -65,7 +66,6 @@ export const Route = createRootRoute({
 			}
 		]
 	}),
-
 	shellComponent: RootDocument
 })
 declare global {
@@ -86,20 +86,24 @@ function RootDocument({ children }: { children: React.ReactNode }) {
 			<body>
 				<QueryClientProvider client={queryClient}>
 					<AuthProvider>{children}</AuthProvider>
+					{!import.meta.env.PROD && (
+						<TanStackDevtools
+							config={{
+								position: "bottom-right"
+							}}
+							plugins={[
+								{
+									name: "Tanstack Router",
+									render: <TanStackRouterDevtoolsPanel />
+								},
+								{
+									name: "React Query",
+									render: <ReactQueryDevtoolsPanel />
+								}
+							]}
+						/>
+					)}
 				</QueryClientProvider>
-				{!import.meta.env.PROD && (
-					<TanStackDevtools
-						config={{
-							position: "bottom-right"
-						}}
-						plugins={[
-							{
-								name: "Tanstack Router",
-								render: <TanStackRouterDevtoolsPanel />
-							}
-						]}
-					/>
-				)}
 				<Scripts />
 				<Toaster richColors />
 			</body>

@@ -230,3 +230,7 @@ code {
     @apply cursor-pointer;
   }
 }
+
+#tanstack_devtools {
+  min-height: 100px;
+}

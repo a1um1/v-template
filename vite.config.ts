@@ -5,6 +5,7 @@ import viteTsConfigPaths from 'vite-tsconfig-paths'
 import tailwindcss from '@tailwindcss/vite'
 import packageConfig from "./package.json";
 import { nitro } from "nitro/vite";
+import errorOverlay from "@visulima/vite-overlay";
 
 const config = defineConfig({
   plugins: [
@@ -14,6 +15,7 @@ const config = defineConfig({
     tailwindcss(),
     tanstackStart(),
     viteReact(),
+    errorOverlay(),
     nitro({ preset: "bun" })
   ],
   define: {
