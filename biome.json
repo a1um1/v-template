@@ -24,9 +24,9 @@
 	"assist": {
 		"actions": {
 			"source": {
-				"organizeImports": "on",
-				"useSortedAttributes": "on",
-				"useSortedProperties": "on"
+				"organizeImports": "off",
+				"useSortedAttributes": "off",
+				"useSortedProperties": "off"
 			}
 		}
 	},
