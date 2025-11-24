@@ -14,6 +14,9 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as DashboardIndexRouteImport } from './routes/dashboard/index'
 import { Route as AuthAuthViewRouteImport } from './routes/auth/$authView'
 import { Route as ApiSplatRouteImport } from './routes/api.$'
+import { Route as DashboardSettingsRouteRouteImport } from './routes/dashboard/settings/route'
+import { Route as DashboardSettingsIndexRouteImport } from './routes/dashboard/settings/index'
+import { Route as DashboardSettingsSessionsRouteImport } from './routes/dashboard/settings/sessions'
 
 const DashboardRouteRoute = DashboardRouteRouteImport.update({
   id: '/dashboard',
@@ -40,40 +43,81 @@ const ApiSplatRoute = ApiSplatRouteImport.update({
   path: '/api/$',
   getParentRoute: () => rootRouteImport,
 } as any)
+const DashboardSettingsRouteRoute = DashboardSettingsRouteRouteImport.update({
+  id: '/settings',
+  path: '/settings',
+  getParentRoute: () => DashboardRouteRoute,
+} as any)
+const DashboardSettingsIndexRoute = DashboardSettingsIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => DashboardSettingsRouteRoute,
+} as any)
+const DashboardSettingsSessionsRoute =
+  DashboardSettingsSessionsRouteImport.update({
+    id: '/sessions',
+    path: '/sessions',
+    getParentRoute: () => DashboardSettingsRouteRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/dashboard': typeof DashboardRouteRouteWithChildren
+  '/dashboard/settings': typeof DashboardSettingsRouteRouteWithChildren
   '/api/$': typeof ApiSplatRoute
   '/auth/$authView': typeof AuthAuthViewRoute
   '/dashboard/': typeof DashboardIndexRoute
+  '/dashboard/settings/sessions': typeof DashboardSettingsSessionsRoute
+  '/dashboard/settings/': typeof DashboardSettingsIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/api/$': typeof ApiSplatRoute
   '/auth/$authView': typeof AuthAuthViewRoute
   '/dashboard': typeof DashboardIndexRoute
+  '/dashboard/settings/sessions': typeof DashboardSettingsSessionsRoute
+  '/dashboard/settings': typeof DashboardSettingsIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/dashboard': typeof DashboardRouteRouteWithChildren
+  '/dashboard/settings': typeof DashboardSettingsRouteRouteWithChildren
   '/api/$': typeof ApiSplatRoute
   '/auth/$authView': typeof AuthAuthViewRoute
   '/dashboard/': typeof DashboardIndexRoute
+  '/dashboard/settings/sessions': typeof DashboardSettingsSessionsRoute
+  '/dashboard/settings/': typeof DashboardSettingsIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/dashboard' | '/api/$' | '/auth/$authView' | '/dashboard/'
+  fullPaths:
+    | '/'
+    | '/dashboard'
+    | '/dashboard/settings'
+    | '/api/$'
+    | '/auth/$authView'
+    | '/dashboard/'
+    | '/dashboard/settings/sessions'
+    | '/dashboard/settings/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/api/$' | '/auth/$authView' | '/dashboard'
+  to:
+    | '/'
+    | '/api/$'
+    | '/auth/$authView'
+    | '/dashboard'
+    | '/dashboard/settings/sessions'
+    | '/dashboard/settings'
   id:
     | '__root__'
     | '/'
     | '/dashboard'
+    | '/dashboard/settings'
     | '/api/$'
     | '/auth/$authView'
     | '/dashboard/'
+    | '/dashboard/settings/sessions'
+    | '/dashboard/settings/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -120,14 +164,53 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiSplatRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/dashboard/settings': {
+      id: '/dashboard/settings'
+      path: '/settings'
+      fullPath: '/dashboard/settings'
+      preLoaderRoute: typeof DashboardSettingsRouteRouteImport
+      parentRoute: typeof DashboardRouteRoute
+    }
+    '/dashboard/settings/': {
+      id: '/dashboard/settings/'
+      path: '/'
+      fullPath: '/dashboard/settings/'
+      preLoaderRoute: typeof DashboardSettingsIndexRouteImport
+      parentRoute: typeof DashboardSettingsRouteRoute
+    }
+    '/dashboard/settings/sessions': {
+      id: '/dashboard/settings/sessions'
+      path: '/sessions'
+      fullPath: '/dashboard/settings/sessions'
+      preLoaderRoute: typeof DashboardSettingsSessionsRouteImport
+      parentRoute: typeof DashboardSettingsRouteRoute
+    }
   }
 }
 
+interface DashboardSettingsRouteRouteChildren {
+  DashboardSettingsSessionsRoute: typeof DashboardSettingsSessionsRoute
+  DashboardSettingsIndexRoute: typeof DashboardSettingsIndexRoute
+}
+
+const DashboardSettingsRouteRouteChildren: DashboardSettingsRouteRouteChildren =
+  {
+    DashboardSettingsSessionsRoute: DashboardSettingsSessionsRoute,
+    DashboardSettingsIndexRoute: DashboardSettingsIndexRoute,
+  }
+
+const DashboardSettingsRouteRouteWithChildren =
+  DashboardSettingsRouteRoute._addFileChildren(
+    DashboardSettingsRouteRouteChildren,
+  )
+
 interface DashboardRouteRouteChildren {
+  DashboardSettingsRouteRoute: typeof DashboardSettingsRouteRouteWithChildren
   DashboardIndexRoute: typeof DashboardIndexRoute
 }
 
 const DashboardRouteRouteChildren: DashboardRouteRouteChildren = {
+  DashboardSettingsRouteRoute: DashboardSettingsRouteRouteWithChildren,
   DashboardIndexRoute: DashboardIndexRoute,
 }
 

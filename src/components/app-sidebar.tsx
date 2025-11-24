@@ -21,9 +21,10 @@ import {
 import { useUser } from "@/data/auth"
 import { Badge } from "@/components/ui/badge"
 import { useAppVersion } from "@/data/appVersion"
+import { Link } from "@tanstack/react-router"
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
-	const { data: user, isLoading } = useUser()
+	const user = useUser()
 	const appVersion = useAppVersion()
 	return (
 		<Sidebar
@@ -34,34 +35,38 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
 					<SidebarMenuItem>
 						<DropdownMenu>
 							<DropdownMenuTrigger asChild>
-								<SidebarMenuButton
-									size="lg"
-									className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground">
-									<div className="bg-sidebar-primary text-sidebar-primary-foreground flex aspect-square size-8 items-center justify-center rounded-lg">
-										<Box className="size-4" />
-									</div>
-									<div className="grid flex-1 text-left text-sm leading-tight">
-										<span className="truncate font-medium">Back office</span>
-										<div>
-											<ButtonGroup>
-												{isLoading ? (
-													<Badge
-														className="w-12"
-														variant="loading"
-													/>
-												) : (
-													<Badge className="text-purple-500">
-														{user?.user.role}
-													</Badge>
-												)}
-
-												<Badge className="text-blue-500 font-mono font-bold">
-													{appVersion.data?.appVersion}
-												</Badge>
-											</ButtonGroup>
+								<Link to="/dashboard">
+									<SidebarMenuButton
+										size="lg"
+										className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground">
+										<div className="bg-sidebar-primary text-sidebar-primary-foreground flex aspect-square size-8 items-center justify-center rounded-lg">
+											<Box className="size-4" />
 										</div>
-									</div>
-								</SidebarMenuButton>
+										<div className="grid flex-1 text-left text-sm leading-tight">
+											<span className="truncate font-medium">Back office</span>
+											<div>
+												<ButtonGroup>
+													{user.isLoading ? (
+														<Badge
+															className="w-12"
+															variant="loading"
+														/>
+													) : (
+														<Badge className="text-purple-500">
+															{user.data?.user.role}
+														</Badge>
+													)}
+
+													<Badge className="text-blue-500 font-mono font-bold">
+														{appVersion.isLoading
+															? "..."
+															: appVersion.data?.appVersion}
+													</Badge>
+												</ButtonGroup>
+											</div>
+										</div>
+									</SidebarMenuButton>
+								</Link>
 							</DropdownMenuTrigger>
 						</DropdownMenu>
 					</SidebarMenuItem>
@@ -129,6 +134,12 @@ export const UserButtonCustom = ({
 							}
 						}
 			}
+			additionalLinks={[
+				{
+					"href": "/dashboard/settings",
+					"label": "ตั้งค่าบัญชีผู้ใช้"
+				}
+			]}
 			disableDefaultLinks
 			size={type === "sidebar" ? (state === "collapsed" ? "icon" : "lg") : "sm"}
 			variant={type === "sidebar" ? "secondary" : "ghost"}
