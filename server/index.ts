@@ -67,7 +67,6 @@ ${error.all.map((e) => `- ${(e as any).path.slice(1)} ${e.summary}`).join('\n')}
     .use(
         openapi({
             references: fromTypes('server/index.ts'),
-
         })
     )
     .use(serverTiming())

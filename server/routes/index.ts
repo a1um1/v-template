@@ -6,13 +6,6 @@ const ApiRoute = new Elysia<''>({
 	prefix: ''
 })
 .use(authMiddleware)
-	.guard({
-		auth: {
-			'permissions': {
-				'adminDashboard': ['view']
-			}
-		}
-	})
 	.get('/', async ()=>{
 		return {
 			appVersion: __APP_VERSION__ || 'Development',

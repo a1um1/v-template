@@ -41,6 +41,7 @@ const items: {
 		]
 	}
 ]
+
 export function NavMain() {
 	return (
 		<SidebarGroup>

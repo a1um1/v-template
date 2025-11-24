@@ -5,6 +5,13 @@ const AdminRoute = new Elysia<'/admin'>({
 	prefix: '/admin'
 })
 	.use(authMiddleware)
+	.guard({
+		auth: {
+			'permissions': {
+				'adminDashboard': ['view']
+			}
+		}
+	})
 	.get('/', () => {
 		return {
 			message: 'Welcome to the admin dashboard'
