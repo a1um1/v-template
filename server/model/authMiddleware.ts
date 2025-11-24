@@ -1,13 +1,14 @@
 import { auth } from "@server/auth";
 import { Session, User } from "better-auth";
 import Elysia from "elysia";
-
+type functionPermitions = NonNullable<NonNullable<Parameters<typeof auth.api.userHasPermission>>[0]>['body']
+    // ^??
 export const authMiddleware = new Elysia({ name: "better-auth" })
   .mount(auth.handler)
   .macro({
 		auth: (config?: {
       enabled?: boolean,
-      permissions?:Parameters<typeof auth.api.userHasPermission>[0]['body']['permissions']
+      permissions?: NonNullable<functionPermitions['permissions']>
     }) => config?.enabled || config?.permissions ? ({
       async resolve({ status, request }): Promise<{
         session: Session

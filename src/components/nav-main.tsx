@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router"
-import { ChevronRight, PieChart, SquareTerminal } from "lucide-react"
+import { ChevronRight, PieChart } from "lucide-react"
 import { Fragment } from "react/jsx-runtime"
 import {
 	Collapsible,

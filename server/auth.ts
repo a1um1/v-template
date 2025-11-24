@@ -1,11 +1,12 @@
 import { db } from "@server/db";
-import { betterAuth } from "better-auth";
+import { betterAuth } from "better-auth/minimal";
 import { admin as adminPlugin } from "better-auth/plugins"
 import { drizzleAdapter } from "better-auth/adapters/drizzle";
 import { ac, systemAdmin } from "@server/permission";
 import { user } from "@server/permission";
 
 export const auth = betterAuth({
+  experimental: { joins: true },
 	database: drizzleAdapter(db, {
 		provider: "pg",
 	}),

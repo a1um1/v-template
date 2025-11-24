@@ -78,9 +78,9 @@ export const useSignUp = () => {
 			if (body.password !== body.confirmPassword)
 				throw new Error("รหัสผ่านไม่ตรงกัน")
 
-			const { data, error } = await authClient.signUp.email({
-				"email": body.email,
-				"password": body.password,
+			const { error } = await authClient.signUp.email({
+				email: body.email,
+				password: body.password,
 				name: `${body.firstName} ${body.lastName}`.replace(/\s+/g, " ").trim()
 			})
 			if (error) throw error
