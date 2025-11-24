@@ -11,7 +11,7 @@ import type { SocketAddress } from 'bun'
 import type { Generator } from 'elysia-rate-limit'
 import { HandledError } from './handled-error'
 
-const appUrl = new URL(process.env.APP_URL || 'http://localhost:3000')
+const appUrl = new URL(Bun.env.VITE_API_URL || 'http://localhost:3000')
 const origin = appUrl.origin
 
 const ipGenerator: Generator<{ ip: SocketAddress }> = (_req, _serv, { ip }) => {

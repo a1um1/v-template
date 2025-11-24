@@ -2,8 +2,7 @@ import { db } from "@server/db";
 import { betterAuth } from "better-auth/minimal";
 import { admin as adminPlugin } from "better-auth/plugins"
 import { drizzleAdapter } from "better-auth/adapters/drizzle";
-import { ac, systemAdmin } from "@server/permission";
-import { user } from "@server/permission";
+import { ac, allRoles } from "@server/permission";
 
 export const auth = betterAuth({
   experimental: { joins: true },
@@ -16,10 +15,7 @@ export const auth = betterAuth({
   plugins: [
     adminPlugin({
         ac: ac,
-        roles: {
-            systemAdmin,
-            user,
-        }
+        roles: allRoles
     }),
   ],
 	session: {

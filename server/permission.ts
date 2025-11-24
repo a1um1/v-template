@@ -19,3 +19,10 @@ export const systemAdmin = ac.newRole({
 	...statement,
 	...adminAc,
 } as unknown as Subset<keyof typeof statement, typeof statement>);
+
+export const allRoles = {
+	user,
+	systemAdmin,
+} as const
+
+export type Role = keyof typeof allRoles;

@@ -1,4 +1,5 @@
 import { auth } from "@server/auth";
+import { Role } from "@server/permission";
 import { Session, User } from "better-auth";
 import Elysia from "elysia";
 
@@ -22,7 +23,7 @@ export const authMiddleware = new Elysia({ name: "better-auth" })
           body: {
             'userId': data.user.id,
             'permissions': config.permissions,
-            'role': data.user.role as 'user' | 'systemAdmin' | undefined
+            'role': data.user.role as Role
           }
         })
         if (!success) return status(403)
