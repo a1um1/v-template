@@ -1,8 +1,8 @@
-import { Link, type LinkOptions } from "@tanstack/react-router";
-import type { VariantProps } from "class-variance-authority";
-import type * as React from "react";
-import { buttonVariants } from "@/components/ui/button";
-import { cn } from "@/lib/utils";
+import { Link, type LinkOptions } from "@tanstack/react-router"
+import type { VariantProps } from "class-variance-authority"
+import type * as React from "react"
+import { buttonVariants } from "@/components/ui/button"
+import { cn } from "@/lib/utils"
 
 function ButtonLinks({
 	className,
@@ -13,14 +13,20 @@ function ButtonLinks({
 }: React.ComponentProps<"a"> &
 	LinkOptions &
 	VariantProps<typeof buttonVariants> & {
-		asChild?: boolean;
+		asChild?: boolean
 	}) {
 	return (
 		<Link
-			className={cn(buttonVariants({ variant, size, className }))}
+			className={cn(
+				buttonVariants({
+					variant,
+					size,
+					className
+				})
+			)}
 			{...props}
 		/>
-	);
+	)
 }
 
-export { ButtonLinks };
+export { ButtonLinks }

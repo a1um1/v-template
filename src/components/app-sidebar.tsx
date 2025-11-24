@@ -2,7 +2,7 @@
 
 import { UserButton } from "@daveyplate/better-auth-ui"
 import { DropdownMenu } from "@radix-ui/react-dropdown-menu"
-import { Box } from "lucide-react"
+import { Box, SettingsIcon } from "lucide-react"
 import type * as React from "react"
 import { NavMain } from "@/components/nav-main"
 import { DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
@@ -137,7 +137,8 @@ export const UserButtonCustom = ({
 			additionalLinks={[
 				{
 					"href": "/dashboard/settings",
-					"label": "ตั้งค่าบัญชีผู้ใช้"
+					"label": "ตั้งค่าบัญชีผู้ใช้",
+					icon: <SettingsIcon />
 				}
 			]}
 			disableDefaultLinks
