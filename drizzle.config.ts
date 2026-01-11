@@ -1,9 +1,8 @@
-
-import { defineConfig } from 'drizzle-kit';
+import { defineConfig } from "drizzle-kit";
 export default defineConfig({
-  out: './drizzle',
-  schema: './server/schema/index.ts',
-  dialect: 'postgresql',
+  out: "./drizzle",
+  schema: "./server/schema/index.ts",
+  dialect: "postgresql",
   dbCredentials: {
     url: Bun.env.DATABASE_URL!,
   },

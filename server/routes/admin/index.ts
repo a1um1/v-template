@@ -1,4 +1,4 @@
-import { authMiddleware } from "@server/model/authMiddleware";
+import { authMiddleware } from "@server/constant/authMiddleware";
 import Elysia, { t } from "elysia";
 
 const AdminRoute = new Elysia<"/admin">({

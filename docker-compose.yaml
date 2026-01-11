@@ -9,7 +9,22 @@ services:
       - "5432:5432"
     volumes:
       - db-data:/var/lib/postgresql/data
+  s3:
+    image: dxflrs/garage:v2.1.0
+    ports:
+      - 3900:3900
+      - 3901:3901
+      - 3902:3902
+      - 3903:3903
+    volumes:
+      - ./garage.toml:/etc/garage.toml
+      - garage-meta:/var/lib/garage/meta
+      - garage-data:/var/lib/garage/data
 
 volumes:
   db-data:
+    driver: local
+  garage-meta:
+    driver: local
+  garage-data:
     driver: local
