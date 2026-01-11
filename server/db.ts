@@ -6,4 +6,4 @@ const pool = new Pool({
   connectionString: Bun.env.DATABASE_URL!,
 });
 
-export const db = drizzle({ client: pool, schema, casing: "snake_case" });
+export const db = drizzle({ client: pool, schema });
