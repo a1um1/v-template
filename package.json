@@ -12,7 +12,7 @@
     "auth:generate": "@better-auth/cli@latest generate --output ./server/schema/auth.ts --config ./server/auth.ts -y && sed -i '' -E 's/\\(\"([^\"]*)\"\\)/()/g' ./server/schema/auth.ts"
   },
   "dependencies": {
-    "@daveyplate/better-auth-ui": "^3.3.14",
+    "@daveyplate/better-auth-ui": "^3.3.15",
     "@elysiajs/cors": "^1.4.1",
     "@elysiajs/eden": "^1.4.6",
     "@elysiajs/openapi": "^1.4.13",
