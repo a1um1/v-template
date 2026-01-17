@@ -1,5 +1,6 @@
 import { authMiddleware } from "@server/constant/authMiddleware";
 import AdminRoute from "@server/routes/admin";
+import CustomerRoute from "@server/routes/customer";
 import Elysia from "elysia";
 
 const ApiRoute = new Elysia({
@@ -11,6 +12,7 @@ const ApiRoute = new Elysia({
       appVersion: __APP_VERSION__ || "Development",
     };
   })
+  .use(CustomerRoute)
   .use(AdminRoute);
 
 export default ApiRoute;

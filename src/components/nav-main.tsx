@@ -1,5 +1,5 @@
 import { Link, NavigateOptions } from "@tanstack/react-router";
-import { ChevronRight, PieChart } from "lucide-react";
+import { ChevronRight, PieChart,UsersIcon } from "lucide-react";
 import { Fragment } from "react/jsx-runtime";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import {
@@ -35,6 +35,13 @@ const items: {
           to: "/dashboard",
         },
         icon: PieChart,
+      },
+      {
+        title: "Customer",
+        url: {
+          to: "/dashboard/customer",
+        },
+        icon: UsersIcon,
       },
     ],
   },

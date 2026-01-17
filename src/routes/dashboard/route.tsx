@@ -26,7 +26,7 @@ function RouteComponent() {
 						</div>
 					</header>
 					<div className="relative flex-1">
-						<div className="flex flex-col gap-4 p-4">
+						<div className="flex flex-col gap-4 p-4 container mx-auto">
 							<Outlet />
 						</div>
 					</div>

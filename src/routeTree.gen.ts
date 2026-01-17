@@ -16,7 +16,9 @@ import { Route as AuthAuthViewRouteImport } from './routes/auth/$authView'
 import { Route as ApiSplatRouteImport } from './routes/api.$'
 import { Route as DashboardSettingsRouteRouteImport } from './routes/dashboard/settings/route'
 import { Route as DashboardSettingsIndexRouteImport } from './routes/dashboard/settings/index'
+import { Route as DashboardCustomerIndexRouteImport } from './routes/dashboard/customer/index'
 import { Route as DashboardSettingsSessionsRouteImport } from './routes/dashboard/settings/sessions'
+import { Route as DashboardCustomerIdRouteImport } from './routes/dashboard/customer/$id'
 
 const DashboardRouteRoute = DashboardRouteRouteImport.update({
   id: '/dashboard',
@@ -53,12 +55,22 @@ const DashboardSettingsIndexRoute = DashboardSettingsIndexRouteImport.update({
   path: '/',
   getParentRoute: () => DashboardSettingsRouteRoute,
 } as any)
+const DashboardCustomerIndexRoute = DashboardCustomerIndexRouteImport.update({
+  id: '/customer/',
+  path: '/customer/',
+  getParentRoute: () => DashboardRouteRoute,
+} as any)
 const DashboardSettingsSessionsRoute =
   DashboardSettingsSessionsRouteImport.update({
     id: '/sessions',
     path: '/sessions',
     getParentRoute: () => DashboardSettingsRouteRoute,
   } as any)
+const DashboardCustomerIdRoute = DashboardCustomerIdRouteImport.update({
+  id: '/customer/$id',
+  path: '/customer/$id',
+  getParentRoute: () => DashboardRouteRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -67,7 +79,9 @@ export interface FileRoutesByFullPath {
   '/api/$': typeof ApiSplatRoute
   '/auth/$authView': typeof AuthAuthViewRoute
   '/dashboard/': typeof DashboardIndexRoute
+  '/dashboard/customer/$id': typeof DashboardCustomerIdRoute
   '/dashboard/settings/sessions': typeof DashboardSettingsSessionsRoute
+  '/dashboard/customer': typeof DashboardCustomerIndexRoute
   '/dashboard/settings/': typeof DashboardSettingsIndexRoute
 }
 export interface FileRoutesByTo {
@@ -75,7 +89,9 @@ export interface FileRoutesByTo {
   '/api/$': typeof ApiSplatRoute
   '/auth/$authView': typeof AuthAuthViewRoute
   '/dashboard': typeof DashboardIndexRoute
+  '/dashboard/customer/$id': typeof DashboardCustomerIdRoute
   '/dashboard/settings/sessions': typeof DashboardSettingsSessionsRoute
+  '/dashboard/customer': typeof DashboardCustomerIndexRoute
   '/dashboard/settings': typeof DashboardSettingsIndexRoute
 }
 export interface FileRoutesById {
@@ -86,7 +102,9 @@ export interface FileRoutesById {
   '/api/$': typeof ApiSplatRoute
   '/auth/$authView': typeof AuthAuthViewRoute
   '/dashboard/': typeof DashboardIndexRoute
+  '/dashboard/customer/$id': typeof DashboardCustomerIdRoute
   '/dashboard/settings/sessions': typeof DashboardSettingsSessionsRoute
+  '/dashboard/customer/': typeof DashboardCustomerIndexRoute
   '/dashboard/settings/': typeof DashboardSettingsIndexRoute
 }
 export interface FileRouteTypes {
@@ -98,7 +116,9 @@ export interface FileRouteTypes {
     | '/api/$'
     | '/auth/$authView'
     | '/dashboard/'
+    | '/dashboard/customer/$id'
     | '/dashboard/settings/sessions'
+    | '/dashboard/customer'
     | '/dashboard/settings/'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -106,7 +126,9 @@ export interface FileRouteTypes {
     | '/api/$'
     | '/auth/$authView'
     | '/dashboard'
+    | '/dashboard/customer/$id'
     | '/dashboard/settings/sessions'
+    | '/dashboard/customer'
     | '/dashboard/settings'
   id:
     | '__root__'
@@ -116,7 +138,9 @@ export interface FileRouteTypes {
     | '/api/$'
     | '/auth/$authView'
     | '/dashboard/'
+    | '/dashboard/customer/$id'
     | '/dashboard/settings/sessions'
+    | '/dashboard/customer/'
     | '/dashboard/settings/'
   fileRoutesById: FileRoutesById
 }
@@ -178,12 +202,26 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DashboardSettingsIndexRouteImport
       parentRoute: typeof DashboardSettingsRouteRoute
     }
+    '/dashboard/customer/': {
+      id: '/dashboard/customer/'
+      path: '/customer'
+      fullPath: '/dashboard/customer'
+      preLoaderRoute: typeof DashboardCustomerIndexRouteImport
+      parentRoute: typeof DashboardRouteRoute
+    }
     '/dashboard/settings/sessions': {
       id: '/dashboard/settings/sessions'
       path: '/sessions'
       fullPath: '/dashboard/settings/sessions'
       preLoaderRoute: typeof DashboardSettingsSessionsRouteImport
       parentRoute: typeof DashboardSettingsRouteRoute
+    }
+    '/dashboard/customer/$id': {
+      id: '/dashboard/customer/$id'
+      path: '/customer/$id'
+      fullPath: '/dashboard/customer/$id'
+      preLoaderRoute: typeof DashboardCustomerIdRouteImport
+      parentRoute: typeof DashboardRouteRoute
     }
   }
 }
@@ -207,11 +245,15 @@ const DashboardSettingsRouteRouteWithChildren =
 interface DashboardRouteRouteChildren {
   DashboardSettingsRouteRoute: typeof DashboardSettingsRouteRouteWithChildren
   DashboardIndexRoute: typeof DashboardIndexRoute
+  DashboardCustomerIdRoute: typeof DashboardCustomerIdRoute
+  DashboardCustomerIndexRoute: typeof DashboardCustomerIndexRoute
 }
 
 const DashboardRouteRouteChildren: DashboardRouteRouteChildren = {
   DashboardSettingsRouteRoute: DashboardSettingsRouteRouteWithChildren,
   DashboardIndexRoute: DashboardIndexRoute,
+  DashboardCustomerIdRoute: DashboardCustomerIdRoute,
+  DashboardCustomerIndexRoute: DashboardCustomerIndexRoute,
 }
 
 const DashboardRouteRouteWithChildren = DashboardRouteRoute._addFileChildren(

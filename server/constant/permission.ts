@@ -5,14 +5,14 @@ const baseRole = ["view", "insert", "update", "delete"] as const;
 
 export const statement = {
 	...defaultStatements,
-  project: baseRole,
+	customer: baseRole,
 	adminDashboard: ['view'],
 } as const
 
 export const ac = createAccessControl(statement);
 
 export const user = ac.newRole({
-    project: ["view", "insert"],
+  customer: ['view', 'insert', 'update'],
 });
 
 export const systemAdmin = ac.newRole({
