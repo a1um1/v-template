@@ -1,11 +1,3 @@
-import {
-  ColumnDef,
-  flexRender,
-  getCoreRowModel,
-  useReactTable,
-  SortingState,
-} from "@tanstack/react-table";
-import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
@@ -16,7 +8,24 @@ import {
 	TableHeader,
 	TableRow,
 } from "@/components/ui/table";
-import { ChevronLeft, ChevronRight, Search, ArrowUpDown, ArrowUp, ArrowDown } from "lucide-react";
+import { formatThaiDate, formatThaiDateShort, formatThaiDateTime } from "@/lib/date";
+import {
+	ColumnDef,
+	flexRender,
+	getCoreRowModel,
+	SortingState,
+	useReactTable,
+} from "@tanstack/react-table";
+import { ArrowDown, ArrowUp, ArrowUpDown, ChevronLeft, ChevronRight, Search } from "lucide-react";
+import { useState } from "react";
+
+export type CellType = 'string' | 'date' | 'datetime' | 'date-short' | 'number';
+
+declare module '@tanstack/react-table' {
+	interface ColumnMeta<TData extends unknown, TValue> {
+		type?: CellType;
+	}
+}
 
 interface DataTableProps<TData, TValue> {
 	columns: ColumnDef<TData, TValue>[];
@@ -39,7 +48,6 @@ interface DataTableProps<TData, TValue> {
 export function DataTable<TData, TValue>({
 	columns,
 	data,
-	searchPlaceholder = "ค้นหารายการ",
 	isLoading = false,
 	emptyMessage = "ไม่พบผลลัพธ์",
 	onPaginationChange,
@@ -169,14 +177,37 @@ export function DataTable<TData, TValue>({
 									key={row.id}
 									data-state={row.getIsSelected() && "selected"}
 								>
-									{row.getVisibleCells().map((cell) => (
-										<TableCell key={cell.id}>
-											{flexRender(
+								{row.getVisibleCells().map((cell) => {
+									const value = cell.getValue();
+									const cellType = cell.column.columnDef.meta?.type;
+
+									const renderCellValue = () => {
+
+											switch (cellType) {
+												case 'datetime':
+													return formatThaiDateTime(value as Date | string);
+												case 'date':
+													return formatThaiDate(value as Date | string);
+												case 'date-short':
+													return formatThaiDateShort(value as Date | string);
+												case 'number':
+													return typeof value === 'number' ? value.toLocaleString('th-TH') : String(value ?? '-');
+												case 'string':
+												default:
+													return  flexRender(
 												cell.column.columnDef.cell,
 												cell.getContext()
-											)}
+											);
+
+										}
+									};
+
+									return (
+										<TableCell key={cell.id}>
+											{renderCellValue()}
 										</TableCell>
-									))}
+									);
+								})}
 								</TableRow>
 							))
 						) : (

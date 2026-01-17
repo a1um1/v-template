@@ -31,12 +31,11 @@ function RouteComponent() {
 		{
 			accessorKey: "phone",
 			header: "โทรศัพท์",
-			cell: ({ row }) => row.original.phone || "-",
 		},
 		{
 			accessorKey: "createdAt",
 			header: "วันที่สร้าง",
-			cell: ({ row }) => new Date(row.original.createdAt).toLocaleDateString(),
+			meta: { type: 'datetime' },
 		},
 		{
 			id: "actions",

@@ -25,7 +25,6 @@ function RouteComponent() {
 			notes: "",
 		},
 		onSubmit: async ({ value }) => {
-			console.log(value)
 			if (isNew) {
 				await createMutation.mutateAsync(value);
 			} else {
