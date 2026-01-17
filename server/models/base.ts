@@ -1,6 +1,7 @@
 import type { SQL } from "drizzle-orm";
 import { ilike, or } from "drizzle-orm";
 import { AnyPgColumn, AnyPgTable } from "drizzle-orm/pg-core";
+import { t } from "elysia";
 import type { DataAdapter } from "./types";
 
 type PageOptions<TTable> = {
@@ -10,11 +11,20 @@ type PageOptions<TTable> = {
   direction?: "asc" | "desc";
 };
 
+export const pagesOptions = t.Object({
+  q: t.Optional(t.String()),
+  cursor: t.Optional(t.String()),
+  limit: t.Optional(t.Integer({ minimum: 1, maximum: 100 })),
+  direction: t.Optional(t.Union([t.Literal("asc"), t.Literal("desc")])),
+  sortBy: t.Optional(t.String())
+})
+
 const DEFAULT_LIMIT = 20;
 
 export type ModelConfigOptions<TTable extends AnyPgTable, TSelect> = {
   table: TTable;
   searchFields?: (keyof TSelect & string)[];
+  extendsSearch?: any;
 };
 
 export type ModelStatics<TTable extends AnyPgTable, TSelect, TInsert> = {

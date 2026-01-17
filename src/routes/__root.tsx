@@ -1,10 +1,11 @@
+import AuthProvider from "@/components/auth-provider";
+import { AlertConfirm } from "@/components/modal/alert";
 import { TanStackDevtools } from "@tanstack/react-devtools";
 import { MutationCache, QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtoolsPanel } from "@tanstack/react-query-devtools";
 import { createRootRoute, HeadContent, Scripts } from "@tanstack/react-router";
 import { TanStackRouterDevtoolsPanel } from "@tanstack/react-router-devtools";
-import { Toaster, toast } from "sonner";
-import AuthProvider from "@/components/auth-provider";
+import { toast, Toaster } from "sonner";
 import appCss from "../styles.css?url";
 
 const queryClient = new QueryClient({
@@ -82,9 +83,11 @@ function RootDocument({ children }: { children: React.ReactNode }) {
                 },
               ]}
             />
+            <AlertConfirm.Root/>
         </QueryClientProvider>
         <Scripts />
         <Toaster richColors />
+
       </body>
     </html>
   );

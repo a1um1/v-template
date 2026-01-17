@@ -1,6 +1,6 @@
-import { eden, useEdenQuery } from "./api";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
+import { eden, useEdenQuery } from "./api";
 
 export function useCustomers(options?: { cursor?: string; limit?: number; q?: string; direction?: 'asc' | 'desc'; sortBy?: string }) {
 	return useEdenQuery(
@@ -23,12 +23,7 @@ export function useCustomerById(id: string) {
 	}).get())
 }
 
-export type CustomerInput = {
-	fullName: string;
-	email: string;
-	phone?: string;
-	notes?: string;
-};
+export type CustomerInput = Parameters<typeof eden.customers.post>[0];
 
 export function useCreateCustomer() {
 	const queryClient = useQueryClient();
@@ -53,7 +48,7 @@ export function useUpdateCustomer(id: string) {
 	const queryClient = useQueryClient();
 
 	return useMutation({
-		mutationFn: async (data: Partial<CustomerInput>) => {
+		mutationFn: async (data: CustomerInput) => {
 			const response = await eden.customers({ id }).put(data);
 			if (response.error) throw response.error;
 			return response.data;

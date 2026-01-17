@@ -1,4 +1,4 @@
-import { json, pgTable, text, index } from "drizzle-orm/pg-core";
+import { boolean, index, pgTable, text } from "drizzle-orm/pg-core";
 import { timestampSchema } from "./utils";
 
 export const customer = pgTable(
@@ -8,13 +8,12 @@ export const customer = pgTable(
       .$defaultFn(() => crypto.randomUUID())
       .primaryKey(),
     fullName: text().notNull(),
-    email: text().notNull().unique(),
     phone: text(),
     notes: text(),
+    isDeleted: boolean().default(false).notNull(),
     ...timestampSchema,
   },
   (table) => [
-    index("customer_email_idx").on(table.email),
     index("customer_name_idx").on(table.fullName),
   ],
 );

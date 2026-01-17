@@ -1,4 +1,5 @@
 import { DataTable } from '@/components/data-table';
+import { AlertConfirm } from '@/components/modal/alert';
 import { Button } from '@/components/ui/button';
 import { useCustomers, useDeleteCustomer } from '@/data/customer';
 import { useTable } from '@/hooks/use-table';
@@ -10,15 +11,6 @@ export const Route = createFileRoute('/dashboard/customer/')({
 	component: RouteComponent,
 })
 
-type Customer = {
-	id: string;
-	fullName: string;
-	email: string;
-	phone?: string | null;
-	notes?: string | null;
-	createdAt: Date;
-	updatedAt: Date;
-};
 
 function RouteComponent() {
 	const { cursor, searchQuery, debouncedSearchQuery, sortBy, sortField, handlePaginationChange, handleSearchChange, handleSortChange } = useTable({ initialSort: 'desc' });
@@ -26,19 +18,15 @@ function RouteComponent() {
 	const deleteMutation = useDeleteCustomer();
 
 	const handleDelete = async (id: string) => {
-		if (confirm("Are you sure you want to delete this customer?")) {
+		if (await AlertConfirm.call({ message: "คุณแน่ใจหรือไม่ที่จะลบลูกค้ารายนี้?" })) {
 			await deleteMutation.mutateAsync(id);
 		}
 	};
 
-	const columns: ColumnDef<Customer>[] = [
+	const columns: ColumnDef<NonNullable<typeof data>["data"][number]>[] = [
 		{
 			accessorKey: "fullName",
 			header: "ชื่อ",
-		},
-		{
-			accessorKey: "email",
-			header: "อีเมล",
 		},
 		{
 			accessorKey: "phone",

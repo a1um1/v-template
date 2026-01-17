@@ -21,7 +21,6 @@ function RouteComponent() {
 	const form = useAppForm({
 		defaultValues: {
 			fullName: "",
-			email: "",
 			phone: "",
 			notes: "",
 		},
@@ -34,6 +33,7 @@ function RouteComponent() {
 			}
 			navigate({
 				to: "/dashboard/customer",
+				ignoreBlocker:true,
 			});
 		}
 	});
@@ -42,7 +42,6 @@ function RouteComponent() {
 		if (customer && !isNew) {
 			form.reset({
 				fullName: customer.fullName,
-				email: customer.email,
 				phone: customer.phone || "",
 				notes: customer.notes || "",
 			});
@@ -71,11 +70,6 @@ function RouteComponent() {
 					<form.AppField
 						name="fullName"
 						children={(field) => <field.TextField label="ชื่อลูกค้า" />}
-					/>
-
-					<form.AppField
-						name="email"
-						children={(field) => <field.TextField label="อีเมล" />}
 					/>
 
 					<form.AppField

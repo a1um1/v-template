@@ -1,7 +1,7 @@
-import { and, desc, eq, gt, ilike, lt, or, sql } from "drizzle-orm";
-import type { SQL } from "drizzle-orm";
-import type { AnyPgColumn, AnyPgTable } from "drizzle-orm/pg-core";
 import { db } from "@server/db";
+import type { SQL } from "drizzle-orm";
+import { and, desc, eq, gt, ilike, lt, or, sql } from "drizzle-orm";
+import type { AnyPgColumn, AnyPgTable } from "drizzle-orm/pg-core";
 import type { DataAdapter } from "./types";
 
 type IdColumnTable = AnyPgTable & { id: AnyPgColumn };
@@ -12,6 +12,10 @@ export class DrizzleDataAdapter<TTable extends IdColumnTable, TSelect, TInsert>
   implements DataAdapter<TTable, TSelect, TInsert>
 {
   constructor(private readonly client: DrizzleClient) {}
+
+  private hasIsDeletedColumn(table: TTable): boolean {
+    return "isDeleted" in table;
+  }
 
   async list(
     table: TTable,
@@ -47,12 +51,18 @@ export class DrizzleDataAdapter<TTable extends IdColumnTable, TSelect, TInsert>
 
     const ordering = direction === "asc" ? orderColumn : desc(orderColumn);
 
-    const whereClause = (() => {
+    let whereClause = (() => {
       if (filter && cursorFilter) return and(filter, cursorFilter);
       if (filter) return filter;
       if (cursorFilter) return cursorFilter;
       return sql`true`;
     })();
+
+    // Filter out soft-deleted records
+    if (this.hasIsDeletedColumn(table)) {
+      const isDeletedColumn = (table as any).isDeleted as AnyPgColumn;
+      whereClause = and(whereClause, eq(isDeletedColumn, false));
+    }
 
     const data = (await this.client
       .select()
@@ -75,7 +85,15 @@ export class DrizzleDataAdapter<TTable extends IdColumnTable, TSelect, TInsert>
   }
 
   async findById(table: TTable, id: string) {
-    const rows = await this.client.select().from(table as AnyPgTable).where(eq(table.id, id)).limit(1) as TSelect[];
+    let whereClause: SQL<any> = eq(table.id, id);
+
+    // Filter out soft-deleted records
+    if (this.hasIsDeletedColumn(table)) {
+      const isDeletedColumn = (table as any).isDeleted as AnyPgColumn;
+      whereClause = and(whereClause, eq(isDeletedColumn, false))!;
+    }
+
+    const rows = await this.client.select().from(table as AnyPgTable).where(whereClause).limit(1) as TSelect[];
     return rows[0] ?? null;
   }
 
@@ -110,6 +128,16 @@ export class DrizzleDataAdapter<TTable extends IdColumnTable, TSelect, TInsert>
   }
 
   async delete(table: TTable, id: string) {
-    await this.client.delete(table).where(eq(table.id, id));
+    // Check if table has isDeleted column for soft delete
+    if (this.hasIsDeletedColumn(table)) {
+      const isDeletedColumn = (table as any).isDeleted as AnyPgColumn;
+      await this.client
+        .update(table)
+        .set({ isDeleted: true } as any)
+        .where(eq(table.id, id));
+    } else {
+      // Hard delete fallback for tables without isDeleted
+      await this.client.delete(table).where(eq(table.id, id));
+    }
   }
 }

@@ -1,6 +1,7 @@
 import { authMiddleware } from "@server/constant/authMiddleware";
 import { HandledError } from "@server/constant/handled-error";
-import { CustomerModel } from "@server/models/customer";
+import { pagesOptions } from "@server/models/base";
+import { CustomerModel, InsertCustomerSchema } from "@server/models/customer";
 import Elysia, { t } from "elysia";
 
 const customerModel = new CustomerModel();
@@ -26,13 +27,7 @@ const CustomerRoute = new Elysia<"/customers">({
       });
     },
     {
-      query: t.Object({
-        q: t.Optional(t.String()),
-        cursor: t.Optional(t.String()),
-        limit: t.Optional(t.Integer({ minimum: 1, maximum: 100 })),
-        direction: t.Optional(t.Union([t.Literal("asc"), t.Literal("desc")])),
-        sortBy: t.Optional(t.String())
-      }),
+      query: pagesOptions,
     },
   )
   .get("/:id", async ({ params }) => {
@@ -46,12 +41,7 @@ const CustomerRoute = new Elysia<"/customers">({
       return customerModel.create(body);
     },
     {
-      body: t.Object({
-        fullName: t.String(),
-        email: t.String({ format: "email" }),
-        phone: t.Optional(t.String()),
-        notes: t.Optional(t.String()),
-      }),
+      body: InsertCustomerSchema,
 			auth: {
       customer: ["insert"],
     },
@@ -65,14 +55,10 @@ const CustomerRoute = new Elysia<"/customers">({
       return updated;
     },
     {
-      body: t.Object({
-        fullName: t.Optional(t.String()),
-        email: t.Optional(t.String({ format: "email" })),
-        phone: t.Optional(t.String()),
-        notes: t.Optional(t.String()),
-      }),auth: {
-      customer: ["update"],
-    },
+      body: InsertCustomerSchema,
+      auth: {
+        customer: ["update"],
+      },
     },
   )
   .delete("/:id", async ({ params }) => {

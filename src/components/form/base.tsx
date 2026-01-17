@@ -1,4 +1,3 @@
-import { placeholder } from "drizzle-orm";
 import { useFieldContext } from ".";
 import { Label } from "../ui/label";
 
