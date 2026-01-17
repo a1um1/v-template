@@ -17,7 +17,9 @@ const config = defineConfig({
     viteReact(),
     errorOverlay(),
     nitro({ preset: "bun" }),
+
   ],
+  ssr: undefined,
   define: {
     __APP_VERSION__: JSON.stringify(packageConfig.version),
   },

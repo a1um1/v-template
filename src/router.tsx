@@ -7,6 +7,7 @@ export const getRouter = () => {
     routeTree,
     scrollRestoration: true,
     defaultPreloadStaleTime: 0,
+    ssr: undefined,
     defaultNotFoundComponent: () => {
       return (
         <div className="h-full flex items-center justify-center flex-col my-auto">

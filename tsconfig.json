@@ -1,6 +1,5 @@
 {
   "include": ["**/*.ts", "**/*.tsx"],
-  "extends": ["nitro/tsconfig"],
   "compilerOptions": {
     "target": "esnext",
     "jsx": "react-jsx",

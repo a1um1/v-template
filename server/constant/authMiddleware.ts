@@ -1,5 +1,5 @@
 import { auth } from "@server/auth";
-import { Role } from "@server/permission";
+import { Role } from "@server/constant/permission";
 import { Session, User } from "better-auth";
 import Elysia from "elysia";
 

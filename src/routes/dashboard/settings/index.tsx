@@ -6,5 +6,9 @@ export const Route = createFileRoute("/dashboard/settings/")({
 })
 
 function RouteComponent() {
-	return <ChangePasswordCard />
+	return <ChangePasswordCard
+		classNames={{
+			footer: 'bg-background'
+		}}
+	/>
 }

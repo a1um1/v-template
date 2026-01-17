@@ -67,8 +67,7 @@ function RootDocument({ children }: { children: React.ReactNode }) {
       <body>
         <QueryClientProvider client={queryClient}>
           <AuthProvider>{children}</AuthProvider>
-          {!import.meta.env.PROD && (
-            <TanStackDevtools
+          <TanStackDevtools
               config={{
                 position: "bottom-right",
               }}
@@ -83,7 +82,6 @@ function RootDocument({ children }: { children: React.ReactNode }) {
                 },
               ]}
             />
-          )}
         </QueryClientProvider>
         <Scripts />
         <Toaster richColors />
