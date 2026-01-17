@@ -21,10 +21,10 @@
 		"editor.defaultFormatter": "oxc.oxc-vscode"
 	},
 	"[json]": {
-		"editor.defaultFormatter": "oxc.oxc-vscode"
+		"editor.defaultFormatter": "TypeScriptTeam.native-preview"
 	},
 	"[jsonc]": {
-		"editor.defaultFormatter": "oxc.oxc-vscode"
+		"editor.defaultFormatter": "TypeScriptTeam.native-preview"
 	},
 	"[css]": {
 		"editor.defaultFormatter": "oxc.oxc-vscode"
