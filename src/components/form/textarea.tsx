@@ -1,17 +1,17 @@
 import { HTMLAttributes } from "react";
 import { useFieldContext } from ".";
-import { Input } from "../ui/input";
+import { Textarea } from "../ui/textarea";
 import { BaseField, BaseFieldProps } from "./base";
 
-type TextFieldProps = BaseFieldProps & HTMLAttributes<HTMLInputElement>
+type TextAreaFieldProps = BaseFieldProps & HTMLAttributes<HTMLTextAreaElement>
 
-export function TextField({
+export function TextAreaField({
   label,
   description,
   required,
-  children,
-  ...props
-}: TextFieldProps) {
+	children,
+	...props
+}: TextAreaFieldProps) {
   const field = useFieldContext<string>();
 
   return (
@@ -20,8 +20,8 @@ export function TextField({
       description={description}
       required={required}
     >
-      <Input
-        {...props}
+      <Textarea
+				{...props}
         id={field.name}
         value={field.state.value ?? ""}
         onChange={(e) => field.handleChange(e.target.value)}

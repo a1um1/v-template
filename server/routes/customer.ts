@@ -21,7 +21,7 @@ const CustomerRoute = new Elysia<"/customers">({
       return customerModel.search(term, {
         cursor: query.cursor,
         limit: query.limit ?? 20,
-        orderBy: (query.sortBy ?? "createdAt") as keyof any,
+        orderBy: (query.sortBy ?? "createdAt") as any,
         direction: query.direction ?? "desc",
       });
     },

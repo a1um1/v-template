@@ -1,5 +1,5 @@
 import { Link, NavigateOptions } from "@tanstack/react-router";
-import { ChevronRight, PieChart,UsersIcon } from "lucide-react";
+import { ChevronRight, PieChart, UsersIcon, Settings } from "lucide-react";
 import { Fragment } from "react/jsx-runtime";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import {
@@ -26,26 +26,38 @@ const items: {
     }[];
   }[];
 }[] = [
-  {
-    title: "Dashboard",
-    items: [
-      {
-        title: "ภาพรวม",
-        url: {
-          to: "/dashboard",
+    {
+      title: "Dashboard",
+      items: [
+        {
+          title: "ภาพรวม",
+          url: {
+            to: "/dashboard",
+          },
+          icon: PieChart,
         },
-        icon: PieChart,
-      },
-      {
-        title: "Customer",
-        url: {
-          to: "/dashboard/customer",
+        {
+          title: "Customer",
+          url: {
+            to: "/dashboard/customer",
+          },
+          icon: UsersIcon,
         },
-        icon: UsersIcon,
-      },
-    ],
-  },
-];
+      ],
+    },
+    {
+      title: "ผู้ดูแลระบบ",
+      items: [
+        {
+          title: "จัดการผู้ใช้",
+          url: {
+            to: "/dashboard/admin/users",
+          },
+          icon: Settings,
+        },
+      ],
+    },
+  ];
 
 export function NavMain() {
   return (

@@ -1,10 +1,10 @@
-import { createFileRoute, Link } from '@tanstack/react-router'
-import { useCustomers, useDeleteCustomer } from '@/data/customer';
 import { DataTable } from '@/components/data-table';
-import { ColumnDef } from '@tanstack/react-table';
 import { Button } from '@/components/ui/button';
-import { Pencil, Plus, Trash2 } from 'lucide-react';
+import { useCustomers, useDeleteCustomer } from '@/data/customer';
 import { useTable } from '@/hooks/use-table';
+import { createFileRoute, Link } from '@tanstack/react-router';
+import { ColumnDef } from '@tanstack/react-table';
+import { Pencil, Plus, Trash2 } from 'lucide-react';
 
 export const Route = createFileRoute('/dashboard/customer/')({
 	component: RouteComponent,
@@ -79,9 +79,7 @@ function RouteComponent() {
 	return (
 		<>
 			<div className="flex items-center justify-between">
-				<div>
 					<h1 className="text-3xl font-bold">รายการลูกค้า</h1>
-				</div>
 				<Button asChild>
 					<Link to="/dashboard/customer/$id" params={{ id: "new" }}>
 						<Plus />

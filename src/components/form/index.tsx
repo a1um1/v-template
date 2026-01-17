@@ -1,6 +1,7 @@
-import { createFormHookContexts, createFormHook } from '@tanstack/react-form'
+import { createFormHook, createFormHookContexts } from '@tanstack/react-form';
+import { BackButton, SubmitAndBackButtons, SubmitButton } from './submit';
 import { TextField } from './text';
-import { BackButton, SubmitButton } from './submit';
+import { TextAreaField } from './textarea';
 
 export const { fieldContext, formContext, useFieldContext, useFormContext } =
   createFormHookContexts()
@@ -9,10 +10,12 @@ export const { useAppForm, } = createFormHook({
   fieldContext,
   formContext,
   fieldComponents: {
-    TextField
+    TextField,
+    TextAreaField,
   },
   formComponents: {
     BackButton,
-    SubmitButton
+    SubmitButton,
+    FooterBar: SubmitAndBackButtons
   },
 })

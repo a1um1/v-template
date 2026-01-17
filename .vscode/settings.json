@@ -33,8 +33,7 @@
 	"explorer.fileNesting.patterns": {
 		"package.json": "package-lock.json, yarn.lock, pnpm-lock.yaml, bun.lockb, bun.lock, tsconfig.*.json, postcss.config.*, tailwind.config.*, vite.config.*, drizzle.config.ts, tsconfig.json, server.ts, Dockerfile, biome.json, components.json, .cta.json, readme.md, docker-compose.yaml, .dockerignore, .gitignore, .env, .env.*, garage.toml, garage.example.toml, bunfig.toml"
 	},
-	"typescript.experimental.useTsgo": true,
+	"typescript.experimental.useTsgo": false,
 	"typescript.tsserver.experimental.enableProjectDiagnostics": true,
-  "oxc.fmt.experimental": true,
   "editor.defaultFormatter": "oxc.oxc-vscode"
 }

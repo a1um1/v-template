@@ -27,3 +27,17 @@ export function BackButton({ label = "ย้อนกลับ" }: { label?: str
   )
 }
 
+export function SubmitAndBackButtons({
+  submitLabel = "บันทึก",
+  backLabel = "ย้อนกลับ"
+}: {
+  submitLabel?: string;
+  backLabel?: string;
+}) {
+  return (
+    <div className="flex gap-3 pt-4 justify-between">
+      <BackButton label={backLabel} />
+      <SubmitButton label={submitLabel} />
+    </div>
+  )
+}

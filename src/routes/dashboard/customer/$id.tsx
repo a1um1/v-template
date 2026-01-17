@@ -1,7 +1,7 @@
-import { createFileRoute, useNavigate } from "@tanstack/react-router";
-import { useCustomerById, useCreateCustomer, useUpdateCustomer } from "@/data/customer";
-import { useEffect } from "react";
 import { useAppForm } from "@/components/form";
+import { useCreateCustomer, useCustomerById, useUpdateCustomer } from "@/data/customer";
+import { createFileRoute, useNavigate } from "@tanstack/react-router";
+import { useEffect } from "react";
 
 
 
@@ -61,37 +61,34 @@ function RouteComponent() {
 
 	return (
 		<>
-			<h1>{isNew ? "Create Customer" : "Edit Customer"}</h1>
+			<h1 className="text-3xl font-bold">{isNew ? "สร้างลูกค้าใหม่" : "แก้ไขข้อมูลลูกค้า"}</h1>
 			<form.AppForm>
 				<form onSubmit={(e) => {
 					e.preventDefault()
 					e.stopPropagation()
 					form.handleSubmit()
-				}}>
+				}} className="flex flex-col gap-4">
 					<form.AppField
 						name="fullName"
-						children={(field) => <field.TextField label="First Name" />}
+						children={(field) => <field.TextField label="ชื่อลูกค้า" />}
 					/>
 
 					<form.AppField
 						name="email"
-						children={(field) => <field.TextField label="Email" />}
+						children={(field) => <field.TextField label="อีเมล" />}
 					/>
 
 					<form.AppField
 						name="phone"
-						children={(field) => <field.TextField label="Phone" />}
+						children={(field) => <field.TextField label="โทรศัพท์" />}
 					/>
 
 					<form.AppField
 						name="notes"
-						children={(field) => <field.TextField label="Notes" />}
+						children={(field) => <field.TextAreaField label="หมายเหตุ" />}
 					/>
 
-					<div className="flex gap-3 pt-4">
-						<form.BackButton />
-						<form.SubmitButton />
-					</div>
+					<form.FooterBar/>
 				</form>
 			</form.AppForm>
 

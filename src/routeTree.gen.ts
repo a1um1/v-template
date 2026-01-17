@@ -19,6 +19,7 @@ import { Route as DashboardSettingsIndexRouteImport } from './routes/dashboard/s
 import { Route as DashboardCustomerIndexRouteImport } from './routes/dashboard/customer/index'
 import { Route as DashboardSettingsSessionsRouteImport } from './routes/dashboard/settings/sessions'
 import { Route as DashboardCustomerIdRouteImport } from './routes/dashboard/customer/$id'
+import { Route as DashboardAdminUsersRouteImport } from './routes/dashboard/admin/users'
 
 const DashboardRouteRoute = DashboardRouteRouteImport.update({
   id: '/dashboard',
@@ -71,6 +72,11 @@ const DashboardCustomerIdRoute = DashboardCustomerIdRouteImport.update({
   path: '/customer/$id',
   getParentRoute: () => DashboardRouteRoute,
 } as any)
+const DashboardAdminUsersRoute = DashboardAdminUsersRouteImport.update({
+  id: '/admin/users',
+  path: '/admin/users',
+  getParentRoute: () => DashboardRouteRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -79,6 +85,7 @@ export interface FileRoutesByFullPath {
   '/api/$': typeof ApiSplatRoute
   '/auth/$authView': typeof AuthAuthViewRoute
   '/dashboard/': typeof DashboardIndexRoute
+  '/dashboard/admin/users': typeof DashboardAdminUsersRoute
   '/dashboard/customer/$id': typeof DashboardCustomerIdRoute
   '/dashboard/settings/sessions': typeof DashboardSettingsSessionsRoute
   '/dashboard/customer': typeof DashboardCustomerIndexRoute
@@ -89,6 +96,7 @@ export interface FileRoutesByTo {
   '/api/$': typeof ApiSplatRoute
   '/auth/$authView': typeof AuthAuthViewRoute
   '/dashboard': typeof DashboardIndexRoute
+  '/dashboard/admin/users': typeof DashboardAdminUsersRoute
   '/dashboard/customer/$id': typeof DashboardCustomerIdRoute
   '/dashboard/settings/sessions': typeof DashboardSettingsSessionsRoute
   '/dashboard/customer': typeof DashboardCustomerIndexRoute
@@ -102,6 +110,7 @@ export interface FileRoutesById {
   '/api/$': typeof ApiSplatRoute
   '/auth/$authView': typeof AuthAuthViewRoute
   '/dashboard/': typeof DashboardIndexRoute
+  '/dashboard/admin/users': typeof DashboardAdminUsersRoute
   '/dashboard/customer/$id': typeof DashboardCustomerIdRoute
   '/dashboard/settings/sessions': typeof DashboardSettingsSessionsRoute
   '/dashboard/customer/': typeof DashboardCustomerIndexRoute
@@ -116,6 +125,7 @@ export interface FileRouteTypes {
     | '/api/$'
     | '/auth/$authView'
     | '/dashboard/'
+    | '/dashboard/admin/users'
     | '/dashboard/customer/$id'
     | '/dashboard/settings/sessions'
     | '/dashboard/customer'
@@ -126,6 +136,7 @@ export interface FileRouteTypes {
     | '/api/$'
     | '/auth/$authView'
     | '/dashboard'
+    | '/dashboard/admin/users'
     | '/dashboard/customer/$id'
     | '/dashboard/settings/sessions'
     | '/dashboard/customer'
@@ -138,6 +149,7 @@ export interface FileRouteTypes {
     | '/api/$'
     | '/auth/$authView'
     | '/dashboard/'
+    | '/dashboard/admin/users'
     | '/dashboard/customer/$id'
     | '/dashboard/settings/sessions'
     | '/dashboard/customer/'
@@ -223,6 +235,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DashboardCustomerIdRouteImport
       parentRoute: typeof DashboardRouteRoute
     }
+    '/dashboard/admin/users': {
+      id: '/dashboard/admin/users'
+      path: '/admin/users'
+      fullPath: '/dashboard/admin/users'
+      preLoaderRoute: typeof DashboardAdminUsersRouteImport
+      parentRoute: typeof DashboardRouteRoute
+    }
   }
 }
 
@@ -245,6 +264,7 @@ const DashboardSettingsRouteRouteWithChildren =
 interface DashboardRouteRouteChildren {
   DashboardSettingsRouteRoute: typeof DashboardSettingsRouteRouteWithChildren
   DashboardIndexRoute: typeof DashboardIndexRoute
+  DashboardAdminUsersRoute: typeof DashboardAdminUsersRoute
   DashboardCustomerIdRoute: typeof DashboardCustomerIdRoute
   DashboardCustomerIndexRoute: typeof DashboardCustomerIndexRoute
 }
@@ -252,6 +272,7 @@ interface DashboardRouteRouteChildren {
 const DashboardRouteRouteChildren: DashboardRouteRouteChildren = {
   DashboardSettingsRouteRoute: DashboardSettingsRouteRouteWithChildren,
   DashboardIndexRoute: DashboardIndexRoute,
+  DashboardAdminUsersRoute: DashboardAdminUsersRoute,
   DashboardCustomerIdRoute: DashboardCustomerIdRoute,
   DashboardCustomerIndexRoute: DashboardCustomerIndexRoute,
 }
